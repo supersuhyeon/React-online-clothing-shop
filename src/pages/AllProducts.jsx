@@ -1,5 +1,7 @@
+import Products from "../components/Products";
+
 export default function AllProducts(){
     return(
-        <p>AllProducts</p>
+       <Products></Products>
     )
 }

@@ -1,6 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, signInWithPopup, GoogleAuthProvider, signOut , onAuthStateChanged } from "firebase/auth";
-import { getDatabase, ref, get } from "firebase/database";
+import { getDatabase, ref, get, set } from "firebase/database";
+import {v4 as uuid} from 'uuid'
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -42,4 +43,24 @@ async function adminUser(user){
         }
         return user;
     }).catch((error)=>{console.log(error)})
+}
+
+export async function addNewProduct(product, image){
+    const id = uuid()
+  return set(ref(database, `product/${id}`),{
+        ...product,
+        id,
+        price:parseInt(product.price),
+        image:image,
+        options: product.options.split(',')
+    })
+}
+
+export async function getProducts(){
+    return get(ref(database, 'products')).then((snapshot)=>{
+        if(snapshot.exists()){
+            return Object.values(snapshot.val()) //value들만 가지고올수있도록 Object.value 내장api사용
+        }
+        return []
+    })
 }
