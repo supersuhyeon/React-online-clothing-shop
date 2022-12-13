@@ -10,6 +10,7 @@ import AllProducts from './pages/AllProducts';
 import NewProduct from './pages/NewProduct';
 import ProductDetail from './pages/ProductDetail';
 import Mycart from './pages/Mycart';
+import ProtectedRoute from './pages/ProtectedRoute';
 
 
 const router = createBrowserRouter([
@@ -20,9 +21,19 @@ const router = createBrowserRouter([
     children: [
       {index:true, element: <Home></Home>},
       {path: "/products", element: <AllProducts></AllProducts>},
-      {path: "/products/new", element: <NewProduct></NewProduct>},
+      {path: "/products/new", 
+      // 특정경로보호
+      // 로그인한 사용자가 있고 어드민이라면 NewProduct페이지 보여주기 아니면 홈으로 리다이렉팅
+      // 해당 조건에 맞으면 컴포넌트를 보여주고 아니면 navigate에서 홈으로 리다이렉팅.
+       element: <ProtectedRoute requireAdmin={true}> 
+        <NewProduct></NewProduct>
+        </ProtectedRoute>},
       {path: "/products/:id", element: <ProductDetail></ProductDetail>},
-      {path: "/cart", element:<Mycart></Mycart>}
+      // 로그인한 사용자가 있다면 Mycart보여주기 아니면 홈으로 리다이렉팅
+      {path: "/cart", 
+       element:<ProtectedRoute>
+        <Mycart></Mycart>
+      </ProtectedRoute>}
     ]
   }
 ])

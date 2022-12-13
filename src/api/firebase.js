@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, signInWithPopup, GoogleAuthProvider, signOut , onAuthStateChanged } from "firebase/auth";
-import { getDatabase, ref, child, get } from "firebase/database";
+import { getDatabase, ref, get } from "firebase/database";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -15,24 +15,19 @@ const auth = getAuth();
 const provider = new GoogleAuthProvider();
 const database = getDatabase(app)
 
-export async function login(){
-  return signInWithPopup(auth, provider)
-  .then((result) => {
-    const user = result.user;
-    console.log(user)
-    return user;
-  }).catch((error)=>{console.log(error)});
+export function login(){
+   signInWithPopup(auth, provider).then((result)=>{return console.log(result)})
 }
 
-export async function logout(){
-    return signOut(auth).then(()=>{return null})
+export function logout(){
+     signOut(auth)
   }
 
 
 export function onUserStateChange(callback){
     onAuthStateChanged(auth, (user) => {
         //1. 사용자가 로그인한경우
-        user && adminUser(user).then((user)=>{return callback(user)})
+        user ? adminUser(user).then((user)=>{return callback(user)}) : callback(null)
       });
 }
 
