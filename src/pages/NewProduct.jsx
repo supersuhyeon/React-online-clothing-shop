@@ -22,6 +22,7 @@ export default function NewProduct(){
             }, 4000);
             //firebase에 새로운 제품을 추가한다
         }).finally(()=>{return setIsUploading((isUploading)=>{return !isUploading})})
+        console.log(product)
         
     }
     const handleChange = (e)=>{

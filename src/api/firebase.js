@@ -47,7 +47,7 @@ async function adminUser(user){
 
 export async function addNewProduct(product, image){
     const id = uuid()
-  return set(ref(database, `product/${id}`),{
+  return set(ref(database, `products/${id}`),{
         ...product,
         id,
         price:parseInt(product.price),
@@ -59,7 +59,7 @@ export async function addNewProduct(product, image){
 export async function getProducts(){
     return get(ref(database, 'products')).then((snapshot)=>{
         if(snapshot.exists()){
-            return Object.values(snapshot.val()) //value들만 가지고올수있도록 Object.value 내장api사용
+            return Object.values(snapshot.val()) //value들만 가지고올수있도록 => array로출력
         }
         return []
     })

@@ -1,4 +1,4 @@
-export default function ProductCard({product: {id, image, title, category, price}}){
+export default function ProductCard({product: { image, title, category, price}}){
     return(
         <li className="rounded-lg shadow-md overflow-hidden cursor-pointer">
             <img className="w-full" src={image} alt={title} />
