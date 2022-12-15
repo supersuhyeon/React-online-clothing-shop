@@ -3,7 +3,8 @@ import {BsFillPencilFill} from 'react-icons/bs'
 import { Link } from 'react-router-dom'
 import User from './User'
 import Button from './ui/Button'
-import { useAuthContext } from './context/AuthContext'
+import { useAuthContext } from '../context/AuthContext'
+import CartStatus from './CartStatus'
 
 export default function Navbar(){
 
@@ -19,7 +20,7 @@ export default function Navbar(){
           
             <nav className='flex items-center gap-4 font-semibold'>
                 <Link to="/products">Products</Link>
-                {user &&  <Link to="/cart">Carts</Link>}
+                {user &&  <Link to="/cart"><CartStatus></CartStatus></Link>}
                 {user && user.isAdmin && (<Link to="/products/new" className='text-2xl'>
                     <BsFillPencilFill/>
                 </Link>)}

@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, signInWithPopup, GoogleAuthProvider, signOut , onAuthStateChanged } from "firebase/auth";
-import { getDatabase, ref, get, set } from "firebase/database";
+import { getDatabase, ref, get, set, remove } from "firebase/database";
 import {v4 as uuid} from 'uuid'
 
 const firebaseConfig = {
@@ -16,6 +16,8 @@ const auth = getAuth();
 const provider = new GoogleAuthProvider();
 const database = getDatabase(app)
 
+
+//login,logout,adminrole read
 export function login(){
    signInWithPopup(auth, provider).then((result)=>{return console.log(result)})
 }
@@ -45,6 +47,7 @@ async function adminUser(user){
     }).catch((error)=>{console.log(error)})
 }
 
+//product write and read
 export async function addNewProduct(product, image){
     const id = uuid()
   return set(ref(database, `products/${id}`),{
@@ -63,4 +66,22 @@ export async function getProducts(){
         }
         return []
     })
+}
+
+//cart read, write and delete
+export async function getCart(userId){
+    return get(ref(database, `carts/${userId}`))
+    .then((snapshot)=>{
+        const items = snapshot.val() || {};
+        
+        return Object.values(items)
+    })
+}
+
+export async function addOrUpdateToCart(userId,product){
+    return set(ref(database, `carts/${userId}/${product.id}`), product)
+}
+
+export async function removeFromCart(userId,productId){
+    return remove(ref(database, `carts/${userId}/${productId}`))
 }
