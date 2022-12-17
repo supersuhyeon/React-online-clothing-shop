@@ -4,7 +4,6 @@ import ProductCard from "./ProductCard"
 export default function Products(){
     const {productsQuery:{isLoading, error, data:products}} = useProducts()
     
-
     return(
         <>
         {console.log(products)}

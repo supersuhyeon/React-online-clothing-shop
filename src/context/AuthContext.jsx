@@ -9,10 +9,10 @@ export function AuthContextProvider({children}){
     const [user, setUser] = useState();
 
     useEffect(()=>{
-        onUserStateChange((user)=>{return console.log(user), setUser(user)})
+        onUserStateChange((user)=>{return setUser(user)})
     },[])
     
-    return <AuthContext.Provider value={{user, login:login, logout:logout }}>
+    return <AuthContext.Provider value={{user, uid: user && user.uid, login:login, logout:logout }}>
         {children}
     </AuthContext.Provider>
 }
