@@ -3,7 +3,9 @@ import useCart from '../hooks/useCart'
 
 export default function CartStatus(){
 
-    const {cartQuery:{data:products}} = useCart()
+    const {
+        cartQuery:{data:products}
+    } = useCart()
 
     return(
         <div className='relative'>

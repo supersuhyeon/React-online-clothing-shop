@@ -6,7 +6,7 @@ import Button from "../components/ui/Button"
 import useCart from "../hooks/useCart"
 
 
-const SHIPPING = 3000
+const SHIPPING = 10
 
 export default function Mycart(){
 

@@ -2,12 +2,14 @@ import { useState } from "react";
 import { uploadImage } from "../api/uploader";
 import Button from "../components/ui/Button";
 import useProducts from "../hooks/useProducts";
+import cogoToast from 'cogo-toast';
 
 export default function NewProduct(){
     const [product, setProduct] = useState({})
     const [file, setFile] = useState()
     const [isUploading, setIsUploading] = useState(false)
     const [success, setSuccess] = useState()
+    const [checkedBox, setCheckedBox] = useState(true)
 
     // const queryClient = useQueryClient()
     // const addProduct = useMutation(({product, url})=> addNewProduct(product, url),{ //어떤 함수를 인자로 받아서 변경할건지
@@ -23,7 +25,10 @@ export default function NewProduct(){
         .then(url => {
             console.log(url)
             addProduct.mutate({product,url}, {onSuccess: ()=>{
-                setSuccess('you added a new product successfully!')
+                // setSuccess('you added a new product successfully!')
+                cogoToast.loading('Loading your data...').then(() => {
+                    cogoToast.success('Data Successfully Loaded');
+                  });
                 setTimeout(() => {
                     setSuccess(null)
                     }, 4000);
@@ -38,11 +43,21 @@ export default function NewProduct(){
         console.log(product)
         
     }
+
+    const handleCheckedbox = (e)=>{
+        setCheckedBox((checkedBox)=>{return !checkedBox})
+        console.log(checkedBox)
+        const strBox = checkedBox.toString()
+        if(checkedBox){
+            setProduct((product)=>({...product, sale:strBox}))
+            return
+        }else if(!checkedBox){
+            setProduct((product)=>({...product}))
+        }
+    }
+
     const handleChange = (e)=>{
         const {name, value, files} = e.target
-        console.log(e.target.files)
-        console.log(e.target.value)
-        console.log(e.target.name)
         if(name === 'file'){
             setFile(files && files[0])
             return
@@ -50,14 +65,19 @@ export default function NewProduct(){
         setProduct((product)=>({...product, [name]:value}))
     }
 
+
+
     return(
         <section className='w-full text-center'>
             <h2 className='text-2xl font-bold my-4'>Add a new product</h2>
-            {success && <p className='my-2'>✅ {success}</p>}
+            {/* {success && <p className='my-2'>✅ {success}</p>} */}
             {file && <img className='w-96 mx-auto mb-2' src={URL.createObjectURL(file)} alt="local file"></img>}
             <form className="flex flex-col px-12" onSubmit = {handleSubmit}>
                 <input type="file" accept='image/*' name="file" required={true} onChange={handleChange}></input>
                 <input type="text" name="title" value={product.title ?? ''} placeholder="product name" required={true} onChange={handleChange}/>
+                <input type="checkbox" name="sale" value={product.sale} id={product.id} onChange={handleCheckedbox}/>
+                <label htmlFor={product.id}>sale item</label>
+                {!checkedBox && <input type="number" name="ogprice" value={product.ogprice ?? ''} placeholder="original price" required={true} onChange={handleChange}></input>}
                 <input type="number" name="price" value={product.price ?? ''} placeholder="price" required={true} onChange={handleChange} />
                 <input type="text" name="category" value={product.category ?? ''} placeholder="category" required={true} onChange={handleChange}/>
                 <input type="text" name="description" value={product.description ?? ''} placeholder="description" required={true} onChange={handleChange}/>

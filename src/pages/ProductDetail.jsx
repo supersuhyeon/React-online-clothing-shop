@@ -1,14 +1,13 @@
 import { useState } from "react"
 import { useLocation } from "react-router-dom"
-import { addOrUpdateToCart } from "../api/firebase";
 import Button from "../components/ui/Button"
-import { useAuthContext } from "../context/AuthContext";
 import useCart from '../hooks/useCart'
+import cogoToast from 'cogo-toast';
 
 export default function ProductDetail(){
     const {addOrUpdateItem} = useCart()
 
-    const  {state:{product:{id, image, title, price, description, category, options}}} = useLocation()
+    const  {state:{product:{id, image, title, price, description, category, options, ogprice, sale}}} = useLocation()
     const [selected, setSelected] = useState(options && options[0])
     const [success, setSuccess] = useState()
     const handleSelect = (e)=>{setSelected(e.target.value)}
@@ -16,7 +15,8 @@ export default function ProductDetail(){
         const product = {id, image, title, price, option: selected, quantity:1}
         addOrUpdateItem.mutate(product, {
             onSuccess: ()=>{
-                setSuccess('added in your cart successfully!')
+                cogoToast.success('added in your cart successfully!');
+                // setSuccess('added in your cart successfully!')
                 setTimeout(() => {setSuccess(null)}, 3000);
         }})
     }
@@ -28,7 +28,10 @@ export default function ProductDetail(){
             <img className="w-full px-4 basis-7/12" src={image} alt={title} />
             <div className="w-full basis-5/12 flex flex-col p-4">
                     <h2 className="text-3xl font-bold py-2 ">{title}</h2>
-                    <p className="text-2xl font-bold py-2 border-b border-gray-400">${price}</p>
+                    <div className={`${sale ? 'flex items-center':'none'}`}>
+                    <p className={`${sale ? 'line-through mr-3 text-lg' : 'no-underline border-b border-gray-400 text-2xl'}  font-bold py-2 `}>{`$${ sale ? ogprice : price }`}</p>
+                    {sale ? <p className="font-bold text-brand text-2xl ">{`$${price}`}</p>: ''}
+                    </div>
                     <p className="py-4 text-lg">{description}</p>
                     <div className="flex items-center">
                         <label className="text-brand font-bold" htmlFor="select">size:</label>
@@ -36,7 +39,7 @@ export default function ProductDetail(){
                             {options && options.map((option, index)=>{return <option key={index}>{option}</option>})}
                         </select>
                     </div>
-                     {success && <p className="my-2">✅{success}</p>}
+                     {/* {success && <p className="my-2">✅{success}</p>} */}
                     <Button text="Add Cart" onClick={handleClick}></Button>
             </div>
         </section>
