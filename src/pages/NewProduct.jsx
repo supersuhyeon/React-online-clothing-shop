@@ -21,8 +21,8 @@ export default function NewProduct(){
             console.log(url)
             addProduct.mutate({product,url}, {onSuccess: ()=>{
                 // setSuccess('you added a new product successfully!')
-                cogoToast.loading('Loading your data...').then(() => {
-                    cogoToast.success('Data Successfully Loaded');
+                cogoToast.loading('adding new product...').then(() => {
+                    cogoToast.success('New product added successfully!');
                   });
                 setTimeout(() => {
                     setSuccess(null)
