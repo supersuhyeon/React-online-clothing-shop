@@ -9,15 +9,17 @@ export default function ProductDetail(){
 
     const  {state:{product:{id, image, title, price, description, category, options, ogprice, sale}}} = useLocation()
     const [selected, setSelected] = useState(options && options[0])
-    const [success, setSuccess] = useState()
     const handleSelect = (e)=>{setSelected(e.target.value)}
+   
     const handleClick = ()=>{
-        const product = {id, image, title, price, option: selected, quantity:1}
-        addOrUpdateItem.mutate(product, {
+    
+        const productCase1 = {id, image, title, price, option: selected, quantity:1}
+        const productCase2 = {...productCase1, ogprice, sale}
+        const finalProduct = ogprice && sale ? productCase2 : productCase1
+
+        addOrUpdateItem.mutate(finalProduct, {
             onSuccess: ()=>{
                 cogoToast.success('added in your cart successfully!');
-                // setSuccess('added in your cart successfully!')
-                setTimeout(() => {setSuccess(null)}, 3000);
         }})
     }
 
@@ -39,7 +41,6 @@ export default function ProductDetail(){
                             {options && options.map((option, index)=>{return <option key={index}>{option}</option>})}
                         </select>
                     </div>
-                     {/* {success && <p className="my-2">✅{success}</p>} */}
                     <Button text="Add Cart" onClick={handleClick}></Button>
             </div>
         </section>

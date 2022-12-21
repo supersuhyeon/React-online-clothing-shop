@@ -10,12 +10,7 @@ export default function NewProduct(){
     const [isUploading, setIsUploading] = useState(false)
     const [success, setSuccess] = useState()
     const [checkedBox, setCheckedBox] = useState(true)
-
-    // const queryClient = useQueryClient()
-    // const addProduct = useMutation(({product, url})=> addNewProduct(product, url),{ //어떤 함수를 인자로 받아서 변경할건지
-    //     onSuccess: ()=>{queryClient.invalidateQueries(['products'])} // 성공적으로 되면 invalidate캐시를 할것.
-    // })
-
+    const [discount, setDiscount] = useState(0)
     const { addProduct} = useProducts()
 
     const handleSubmit = (e)=>{
@@ -33,12 +28,6 @@ export default function NewProduct(){
                     setSuccess(null)
                     }, 4000);
             }})
-            // addNewProduct(product, url).then(setSuccess('you added a new product successfully!')); //새로운 제품 등록 성공
-            // setTimeout(() => {
-            //     setSuccess(null)
-            // }, 4000);
-
-            //firebase에 새로운 제품을 추가한다
         }).finally(()=>{return setIsUploading((isUploading)=>{return !isUploading})})
         console.log(product)
         
@@ -58,6 +47,15 @@ export default function NewProduct(){
 
     const handleChange = (e)=>{
         const {name, value, files} = e.target
+        console.log(value, name)
+
+        if(name === 'ogprice'){
+            const percentage = value * 40/100
+            const resultValue = Math.ceil(value - percentage)
+            setDiscount(resultValue)
+            
+        }
+
         if(name === 'file'){
             setFile(files && files[0])
             return
@@ -75,9 +73,14 @@ export default function NewProduct(){
             <form className="flex flex-col px-12" onSubmit = {handleSubmit}>
                 <input type="file" accept='image/*' name="file" required={true} onChange={handleChange}></input>
                 <input type="text" name="title" value={product.title ?? ''} placeholder="product name" required={true} onChange={handleChange}/>
-                <input type="checkbox" name="sale" value={product.sale} id={product.id} onChange={handleCheckedbox}/>
-                <label htmlFor={product.id}>sale item</label>
-                {!checkedBox && <input type="number" name="ogprice" value={product.ogprice ?? ''} placeholder="original price" required={true} onChange={handleChange}></input>}
+
+                <div className="flex py-3">
+                    <input className="mr-2" type="checkbox" name="sale" value={product.sale} id={product.id} onChange={handleCheckedbox}/>
+                    <label htmlFor={product.id}>Sale item (40%OFF)</label>
+                </div>
+
+                {!checkedBox && <input type="number" name="ogprice" value={product.ogprice ?? ''} placeholder="original price" onChange={handleChange}></input>}
+                {!checkedBox && <p className="flex text-sm text-brand">💡 Final price is {discount}</p>}
                 <input type="number" name="price" value={product.price ?? ''} placeholder="price" required={true} onChange={handleChange} />
                 <input type="text" name="category" value={product.category ?? ''} placeholder="category" required={true} onChange={handleChange}/>
                 <input type="text" name="description" value={product.description ?? ''} placeholder="description" required={true} onChange={handleChange}/>
