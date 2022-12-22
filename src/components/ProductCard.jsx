@@ -1,4 +1,3 @@
-import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 
 export default function ProductCard({product ,product: { id,image, title, category, price, sale , ogprice}}){

@@ -11,7 +11,7 @@ const SHIPPING = 10
 export default function Mycart(){
 
     const {
-        cartQuery: { isLoading, error, data: products },
+        cartQuery: { isLoading, data: products },
       } = useCart();
     
       if (isLoading){return <p>Loading...</p>;}
