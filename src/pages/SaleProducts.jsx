@@ -11,7 +11,7 @@ export default function SaleProoducts(){
 
         <>
         { 
-        <ul className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
+        <ul className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4 mt-36">
                {products 
                 && products.map((product) => {
                     if(product.category === 'Women' && gender === 'women'){

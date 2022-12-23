@@ -30,10 +30,12 @@ export default function CartItem({product, product : {id, image, option, price, 
                 <div className="basis-3/5">
                     <p className="text-lg">{title}</p>
                     <p className="font-semibold text-brand">{`Option : ${option}`}</p>
+
                     <div className={`${sale ? 'flex items-center':'none'}`}>
                     <p className={`${sale ? 'line-through mr-3' : 'no-underline'}`}>{`$${ sale ? ogprice : price }`}</p>
                     {sale ? <p className="font-bold text-brand ">{`$${price}`}</p>: ''}
                     </div>
+                    
                 </div>
                 <div className="text-2xl flex items-center">
                     <AiOutlineMinusSquare className={ICON_CLASS} onClick={handleMinus}></AiOutlineMinusSquare>
