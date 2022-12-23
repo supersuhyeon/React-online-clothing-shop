@@ -5,7 +5,7 @@ import useProducts from "../hooks/useProducts";
 
 export default function Sidebar({toggle, close}){
 
-    const styling = close ? 'flex justify-center items-center gap-4 bg-white fixed left-0 right-0 h-16 z-30 cursor-pointer top-10'  : 'flex justify-center items-center gap-4 bg-white fixed left-0 right-0 h-16 z-30 cursor-pointer top-0'
+    const styling = close ? 'flex justify-center items-center gap-4 bg-amber-50 fixed left-0 right-0 h-16 z-30 cursor-pointer top-10'  : 'flex justify-center items-center gap-4 bg-amber-50 fixed left-0 right-0 h-16 z-30 cursor-pointer top-0'
 
     const {productsQuery:{ data:products}} = useProducts()
     const navigate = useNavigate()

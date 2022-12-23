@@ -61,7 +61,7 @@ export default function NewProduct(){
 
 
     return(
-        <section className='w-full text-center mt-40'>
+        <section className='w-full text-center mt-44'>
             <h2 className='text-2xl font-bold my-4'>Add a new product</h2>
             {file && <img className='w-96 mx-auto mb-2' src={URL.createObjectURL(file)} alt="local file"></img>}
             <form className="flex flex-col px-12" onSubmit = {handleSubmit}>

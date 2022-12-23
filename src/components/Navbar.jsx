@@ -24,22 +24,27 @@ export default function Navbar(){
         <>
        {close && <MiniBanner handleDelete={handleDelete}></MiniBanner>}
         <header className={ close ? `top-10 ${STYLING}`  : `top-0 ${STYLING}` }>
-            <Link to="/" className='flex items-center text-3xl text-brand'>
-            <p>lulu</p>
-            </Link>
 
-            <ul className='flex shrink-0 px-5 pt-5 gap-5 cursor-pointer'>
+
+            <ul className='flex items-center shrink-0 px-5 gap-5 cursor-pointer'>
+                <Link to="/" className='text-3xl text-brand'>
+                <p className='font-semibold mr-3'>lulu</p>
+                </Link>
+
+                <ul className='flex items-center gap-5 text-sm'>
                 <Link to="/">
                     <li>Home</li>
                 </Link>
-               <li className='flex flex-col items-center' onClick={()=>{setToggleSidebar((toggle)=>{return !toggle})}}>Shop
+               <li className='flex flex-col items-center pt-4' onClick={()=>{setToggleSidebar((toggle)=>{return !toggle})}}>Shop
                 <p><IoIosArrowDown></IoIosArrowDown></p>
                 </li> 
                <li>Magazine</li> 
                <li>Contact</li> 
+                </ul>
+                
             </ul>
           
-            <nav className='flex items-center gap-4 font-semibold'>
+            <nav className='flex items-center gap-4 text-sm font-semibold'>
                 {/* <Link to="/products">Products</Link> */}
                 {user &&  <Link to="/cart"><CartStatus></CartStatus></Link>}
                 {user && user.isAdmin && (<Link to="/products/new" className='text-2xl'>

@@ -27,7 +27,7 @@ export default function Mycart(){
 
     return(
        <>
-        <section className="flex flex-col p-8 mt-32">
+        <section className="flex flex-col p-8 mt-36">
             <p className="text-2xl text-center font-bold pb-4 border-b border-gray-300">My cart</p>
             {!hasProducts && <p>there is no product in your cart</p>}
             {hasProducts && (

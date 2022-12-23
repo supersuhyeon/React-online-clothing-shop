@@ -1,6 +1,16 @@
 import Button from "./ui/Button";
+import {BsFillArrowUpSquareFill} from 'react-icons/bs'
+
 
 export default function Footer(){
+
+    const handleClickUp = ()=>{
+        window.scrollTo({
+            top: 0,
+            behavior:'smooth'
+        })
+    }
+
     return(
         <div className="mt-20 border-t border-gray-300 mb-10">
             <div className="flex gap-10 p-4 text-sm justify-between mt-10">
@@ -37,6 +47,10 @@ export default function Footer(){
             <Button text="SUBSCRIBE"></Button>
             </div>
             </div>
+
+            <button className="fixed bottom-10 right-10 text-4xl z-50 text-brand" onClick={handleClickUp}>
+               <BsFillArrowUpSquareFill></BsFillArrowUpSquareFill> 
+            </button>
         </div>
     )
 }
