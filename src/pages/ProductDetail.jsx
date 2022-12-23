@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom"
 import Button from "../components/ui/Button"
 import useCart from '../hooks/useCart'
 import cogoToast from 'cogo-toast';
+import Footer from "../components/Footer";
 
 export default function ProductDetail(){
     const {addOrUpdateItem} = useCart()
@@ -44,6 +45,7 @@ export default function ProductDetail(){
                     <Button text="Add Cart" onClick={handleClick}></Button>
             </div>
         </section>
+        <Footer></Footer>
         </>
     )
 }

@@ -22,7 +22,7 @@ const router = createBrowserRouter([
     children: [
       {index:true, element: <Home></Home>},
       {path: "/products", element: <AllProducts></AllProducts>},
-      {path: "/sale/:gender", element: <SaleProducts></SaleProducts>},
+      {path: "/product/:items", element: <SaleProducts></SaleProducts>},
       {path: "/products/new", 
       // 특정경로보호
       // 로그인한 사용자가 있고 어드민이라면 NewProduct페이지 보여주기 아니면 홈으로 리다이렉팅

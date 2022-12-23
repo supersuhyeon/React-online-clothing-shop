@@ -1,6 +1,7 @@
 import useProducts from "../hooks/useProducts"
 import ProductCard from "./ProductCard"
 import ReactLoading from 'react-loading';
+import PrepareNote from "./PrepareNote";
 
 export default function Products(){
     const {productsQuery:{isLoading, error, data:products}} = useProducts()
@@ -16,9 +17,13 @@ export default function Products(){
         {error && <p>something is wrong...</p>}
         <ul className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
             {products 
-                && products.map((product)=>(
-                <ProductCard key={product.id} product={product}></ProductCard>
-                ))}
+                && products.map((product)=>{
+
+                if(product.category === 'Gift'){
+                    return <PrepareNote key={product.id} product={product}></PrepareNote>
+                }
+                 return <ProductCard key={product.id} product={product}></ProductCard>
+               })}
         </ul>
         </>
     )

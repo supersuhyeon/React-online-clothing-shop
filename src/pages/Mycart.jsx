@@ -4,6 +4,7 @@ import { FaEquals } from "react-icons/fa"
 import PriceCard from "../components/PriceCard"
 import Button from "../components/ui/Button"
 import useCart from "../hooks/useCart"
+import Footer from "../components/Footer"
 
 
 const SHIPPING = 10
@@ -25,6 +26,7 @@ export default function Mycart(){
         );
 
     return(
+       <>
         <section className="flex flex-col p-8 mt-32">
             <p className="text-2xl text-center font-bold pb-4 border-b border-gray-300">My cart</p>
             {!hasProducts && <p>there is no product in your cart</p>}
@@ -48,6 +50,8 @@ export default function Mycart(){
             </>
             )}
         </section>
+        <Footer></Footer>
+       </>
        
     )
 }
