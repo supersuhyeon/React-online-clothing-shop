@@ -4,7 +4,7 @@ import useCart from "../hooks/useCart";
 
 const ICON_CLASS = 'className="transition-all cursor-pointer hover:text-brand hover:scale-105 mx-1'
 
-export default function CartItem({product, product : {id, image, option, price, quantity, title, sale, ogprice}}){
+export default function CartItem({product, product : {id, image, option, price, quantity, title, sale, ogprice, color}}){
 
 
     const {addOrUpdateItem, removeItem} = useCart()
@@ -28,9 +28,9 @@ export default function CartItem({product, product : {id, image, option, price, 
             <img className="w-24 md:w-48 rounded-lg" src={image} alt={title} />
             <div className="flex flex-1 justify-between ml-4">
                 <div className="basis-3/5">
-                    <p className="text-lg">{title}</p>
-                    <p className="font-semibold text-brand">{`Option : ${option}`}</p>
-
+                    <p className="text-ml font-semibold mb-1">{title}</p>
+                    <p className="text-sm mb-1">COLOR : {color}</p>
+                    <p className=" text-brand text-sm">{`SIZE : ${option}`}</p>
                     <div className={`${sale ? 'flex items-center':'none'}`}>
                     <p className={`${sale ? 'line-through mr-3' : 'no-underline'}`}>{`$${ sale ? ogprice : price }`}</p>
                     {sale ? <p className="font-bold text-brand ">{`$${price}`}</p>: ''}

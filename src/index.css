@@ -33,3 +33,7 @@ input{
 .slick-dots{
   left: 3px;
 }
+
+#colorbtn.active{
+  border: red;
+}

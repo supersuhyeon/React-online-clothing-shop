@@ -9,7 +9,7 @@ import Sidebar from './Sidebar'
 import { useState } from 'react'
 import MiniBanner from './MiniBanner'
 
-const STYLING = 'flex h-20 justify-between border-b border-gray-300 p-2 fixed  left-0 right-0 z-40 bg-white'
+const STYLING = 'flex h-20 justify-between border-b border-gray-300 p-2 fixed left-0 right-0 z-40 bg-white'
 
 export default function Navbar(){
 
