@@ -7,7 +7,7 @@ this is a simple online store that I created using REACT. <br>
 ### Goals of the project
 
 1. Build components hierarchy and use React router for making a single page application
-2. Login and logout through GoogleAuthProvider from firebase
+2. Login and logout through `GoogleAuthProvider` from firebase
 3. Set, get, and remove data using firebase
 4. Request a data change operation to the server using `useMutation` from React Query (`useQuery` vs `useMutation`)
 5. Refactoring using custom hooks for maintainence and readability
@@ -128,7 +128,7 @@ async function adminUser(user) {
    }
    ```
 
-- **Request a data change operation to the server using useMutation from React Query (useQuery vs useMutation)**
+- **Request a data change operation to the server using useMutation from React Query (useQuery vs useMutation)** <br>
   useQuery and useMutation were confusing at the beginning. After I studied and tested several code, I would simply say useQuery is for reading data, while useMutation is for updating data. <br>
   <br>
   **How to use useMutation**
@@ -152,7 +152,7 @@ const saveData = useMutation((data) => axios.post('http://localhost:8080/saveDat
 }
 ```
 
-use useMutation from this project
+**Use useMutation from this project**
 
 ```js
 //ProductDetails.jsx
