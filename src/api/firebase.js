@@ -23,14 +23,15 @@ export function login(){
 }
 
 export function logout(){
-     signOut(auth)
+     signOut(auth).catch(console.error)
   }
 
 
 export function onUserStateChange(callback){
-    onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(auth, async (user) => {
         //1. 사용자가 로그인한경우
-        user ? adminUser(user).then((user)=>{return callback(user)}) : callback(null)
+        const updatedUser = user ? await adminUser(user) : null
+        callback(updatedUser)
       });
 }
 

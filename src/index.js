@@ -20,22 +20,18 @@ const router = createBrowserRouter([
     element : <App></App>,
     errorElement : <NotFound></NotFound>,
     children: [
-      {index:true, element: <Home></Home>},
+      {index:true, path:"/", element: <Home></Home>},
       {path: "/products", element: <AllProducts></AllProducts>},
       {path: "/product/:items", element: <SaleProducts></SaleProducts>},
       {path: "/products/new", 
-      // 특정경로보호
-      // 로그인한 사용자가 있고 어드민이라면 NewProduct페이지 보여주기 아니면 홈으로 리다이렉팅
-      // 해당 조건에 맞으면 컴포넌트를 보여주고 아니면 navigate에서 홈으로 리다이렉팅.
-       element: <ProtectedRoute requireAdmin={true}> 
+       element: (<ProtectedRoute requireAdmin={true}> 
         <NewProduct></NewProduct>
-        </ProtectedRoute>},
+        </ProtectedRoute>)},
       {path: "/products/:id", element: <ProductDetail></ProductDetail>},
-      // 로그인한 사용자가 있다면 Mycart보여주기 아니면 홈으로 리다이렉팅
       {path: "/cart", 
-       element:<ProtectedRoute>
+       element:(<ProtectedRoute>
         <Mycart></Mycart>
-      </ProtectedRoute>}
+      </ProtectedRoute>)}
     ]
   }
 ])

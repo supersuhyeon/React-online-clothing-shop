@@ -34,7 +34,7 @@ export default function Products(){
             }
         {error && <p>something is wrong...</p>}
 
-        <div className="flex justify-end pr-5">
+        <div className="flex justify-end mt-32 pr-5">
             <p className="font-semibold mr-5 border-b-2 border-brand">All Items({products && products.length})</p>
             <label htmlFor="sort" className="font-semibold mr-2">Sort by</label>
             <select id="sort" className="text-sm" name="sort" value={sorted} onChange={handleSorted}>
