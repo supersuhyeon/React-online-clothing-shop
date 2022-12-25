@@ -55,6 +55,7 @@ export async function addNewProduct(product, image){
         id,
         price:parseInt(product.price),
         image:image,
+        colors : product.colors.split(','),
         options: product.options.split(','),
     })
 }

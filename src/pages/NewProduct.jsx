@@ -42,7 +42,6 @@ export default function NewProduct(){
 
     const handleChange = (e)=>{
         const {name, value, files} = e.target
-        console.log(value, name)
 
         if(name === 'ogprice'){
             const percentage = value * 40/100
@@ -78,7 +77,8 @@ export default function NewProduct(){
                 <input type="number" name="price" value={product.price ?? ''} placeholder="price" required={true} onChange={handleChange} />
                 <input type="text" name="category" value={product.category ?? ''} placeholder="category" required={true} onChange={handleChange}/>
                 <input type="text" name="description" value={product.description ?? ''} placeholder="description" required={true} onChange={handleChange}/>
-                <input type="text" name="options" value={product.options ?? ''} placeholder="options(use this to divide(,))" required={true} onChange={handleChange}/>
+                <input type="text" name="colors" value={product.colors ?? ''} placeholder="colors (seperated by commas(,))" required={true} onChange={handleChange}/>
+                <input type="text" name="options" value={product.options ?? ''} placeholder="options (seperated by commas(,))" required={true} onChange={handleChange}/>
                 <Button text={isUploading ? 'uploading...' : 'add a product'} disabled={isUploading}></Button>
                 {/* isUploading이 true인 경우에 버튼을 disabled시켜준다. product.title의 값은 여기의 value값이다 */}
             </form>
