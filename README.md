@@ -94,9 +94,9 @@ async function adminUser(user) {
 ```
 
 - **Set, get, remove the data using firebase** <br>
-  [Read and Write Data on the Web](https://firebase.google.com/docs/database/web/read-and-write?hl=en&authuser=0)
+  [Read and Write Data on the Web](https://firebase.google.com/docs/database/web/read-and-write?hl=en&authuser=0) <br>
 
-1. Add a new product
+1. Add a new product<br>
    ![ezgif com-gif-maker (56)](https://user-images.githubusercontent.com/94214512/209458694-bac38751-12cf-4450-90e2-5588c304672f.gif)<br>
 
    ```js
@@ -113,14 +113,14 @@ async function adminUser(user) {
    }
    ```
 
-2. Add to cart
+2. Add to cart<br>
    ![ezgif com-gif-maker (57)](https://user-images.githubusercontent.com/94214512/209458763-761ff183-07c8-4f2c-864c-9353c5687840.gif)<br>
    ```js
    export async function addOrUpdateToCart(userId, product) {
      return set(ref(database, `carts/${userId}/${product.id}`), product);
    }
    ```
-3. Remove
+3. Remove<br>
    ![ezgif com-gif-maker (58)](https://user-images.githubusercontent.com/94214512/209458826-fa8f48b9-c499-43df-97ec-c77c6a11c368.gif)<br>
    ```js
    export async function removeFromCart(userId, productId) {
