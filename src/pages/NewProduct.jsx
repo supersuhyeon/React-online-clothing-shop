@@ -30,10 +30,9 @@ export default function NewProduct(){
 
     const handleCheckedbox = (e)=>{
         setCheckedBox((checkedBox)=>{return !checkedBox})
-        console.log(checkedBox)
-        const strBox = checkedBox.toString()
+        // const strBox = checkedBox.toString()
         if(checkedBox){
-            setProduct((product)=>({...product, sale:strBox}))
+            setProduct((product)=>({...product, sale:checkedBox}))
             return
         }else if(!checkedBox){
             setProduct((product)=>({...product}))
