@@ -33,7 +33,11 @@ export default function ProductDetail(){
         addOrUpdateItem.mutate(finalProduct, {
             onSuccess: ()=>{
                 cogoToast.success('added in your cart successfully!');
-        }})
+        },
+            onError: ()=>{
+                cogoToast.error('please login to add to cart!')
+            }
+    })
     }
 
     const [currentTab, setCurrentTab] = useState(0)
