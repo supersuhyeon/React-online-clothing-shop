@@ -234,7 +234,7 @@ export async function addOrUpdateToCart(userId, product) {
 }
 ```
 
-**5. Refactoring using custom hooks for maintainence and readability**
+**5. Refactoring using custom hooks for maintainence and readability**<br>
 useQuery and useMutation were separated in all different components before refactoring so whenever I tried to create a caching strategy, it was hard for me to figure it out all at once. And then I got the answer after reading this [create custom hooks](https://tkdodo.eu/blog/practical-react-query#create-custom-hooks).
 Making custom hooks really helps with managing data in one place and makes for cleaner code by getting away from the UI logic.
 
