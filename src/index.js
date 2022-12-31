@@ -6,12 +6,11 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import NotFound from './pages/NotFound';
 import Home from './pages/Home';
-import AllProducts from './pages/AllProducts';
 import NewProduct from './pages/NewProduct';
 import ProductDetail from './pages/ProductDetail';
 import Mycart from './pages/Mycart';
 import ProtectedRoute from './pages/ProtectedRoute';
-import SaleProducts from './pages/SaleProducts';
+import ShopProducts from './pages/ShopProducts';
 
 
 const router = createBrowserRouter([
@@ -21,8 +20,7 @@ const router = createBrowserRouter([
     errorElement : <NotFound></NotFound>,
     children: [
       {index:true, path:"/", element: <Home></Home>},
-      {path: "/products", element: <AllProducts></AllProducts>},
-      {path: "/product/:items", element: <SaleProducts></SaleProducts>},
+      {path: "/product/:items", element: <ShopProducts></ShopProducts>},
       {path: "/products/new", 
        element: (<ProtectedRoute requireAdmin={true}> 
         <NewProduct></NewProduct>

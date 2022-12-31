@@ -3,7 +3,7 @@ import Footer from "../components/Footer"
 import PrepareNote from "../components/PrepareNote"
 import ProductCard from "../components/ProductCard"
 
-export default function SaleProoducts(){
+export default function ShopProducts(){
 
    const {items} = useParams()
    const {state:{products}}= useLocation()

@@ -1,8 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import useProducts from "../hooks/useProducts";
 
-
-
 export default function Sidebar({toggle, close}){
 
     const styling = close ? 'flex justify-center items-center gap-4 bg-amber-50 fixed left-0 right-0 h-16 z-30 cursor-pointer top-10'  : 'flex justify-center items-center gap-4 bg-amber-50 fixed left-0 right-0 h-16 z-30 cursor-pointer top-0'
