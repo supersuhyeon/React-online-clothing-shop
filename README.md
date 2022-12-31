@@ -20,7 +20,10 @@ React, TailwindCSS
 
 ### Features
 
-- **Build components hierarchy and use React router for making a single page application**
+**1. Build components hierarchy and use React router for making a single page application**
+![lulu2](https://user-images.githubusercontent.com/94214512/210153387-3e661001-5cf5-418f-a6bd-bc14e0877ca5.png)<br>
+
+- Add a router for making a single page application in index.js
 
   ```js
   //index.js
@@ -31,7 +34,7 @@ React, TailwindCSS
       errorElement: <NotFound></NotFound>,
       children: [
         { index: true, path: "/", element: <Home></Home> },
-        { path: "/product/:items", element: <SaleProducts></SaleProducts> },
+        { path: "/product/:items", element: <ShopProducts></ShopProducts> },
         {
           path: "/products/new",
           element: (
@@ -54,9 +57,20 @@ React, TailwindCSS
   ]);
   ```
 
-- **Login, logout through GoogleAuthProvider from firebase**<br>
-  [Authenticate Using Google with JavaScript](https://firebase.google.com/docs/auth/web/google-signin?hl=en&authuser=0)
-  ![ezgif com-gif-maker (55)](https://user-images.githubusercontent.com/94214512/209458548-a8a5c255-6950-4d72-898e-03894470e81a.gif)
+- Each component/page represents: <br>
+  1. App : top level element
+  2. Navbar : this navbar includes a mini-banner, logo, side toggle menu bar, cart icon, pencil icon that you can add a new product as an admin, and user login/logout
+  3. Outlet : children route elements
+  4. Home : main home page
+  5. ShopProducts : display products according to the user's click from side toggle menu bar (women, men, saleItem, and gift)
+  6. NewProduct : only the admin user is allowed to access and add a new product
+  7. ProtectedRoute : for protecting some specific routes which require the user's information
+  8. productDetail : show the product's details after the user clicks on it
+  9. Mycart : only a logged in user is allowed to access and see the product list that they added from product detail page
+
+**2. Login, logout through GoogleAuthProvider from firebase** <br>
+[Authenticate Using Google with JavaScript](https://firebase.google.com/docs/auth/web/google-signin?hl=en&authuser=0)<br>
+![ezgif com-gif-maker (55)](https://user-images.githubusercontent.com/94214512/209458548-a8a5c255-6950-4d72-898e-03894470e81a.gif)
 
 ```js
 //Read login,logout,adminrole
@@ -93,45 +107,62 @@ async function adminUser(user) {
 }
 ```
 
-- **Set, get, remove the data using firebase** <br>
-  [Read and Write Data on the Web](https://firebase.google.com/docs/database/web/read-and-write?hl=en&authuser=0) <br>
+**_Realtime Database security rules_**<br>
+While working on my lulu project, I was emailed by firebase about changing realtime database security rules. Otherwise they would start denying client requests. I was a little bit confused on how to figure it out, but it was easier than I thought after reading firebase's official documentation [Avoid insecure rules](https://firebase.google.com/docs/rules/insecure-rules)<br>
 
-1. Add a new product<br>
-   ![ezgif com-gif-maker (56)](https://user-images.githubusercontent.com/94214512/209458694-bac38751-12cf-4450-90e2-5588c304672f.gif)<br>
+```js
+{
+ //lulu is an online shopping website so regardless of registration, anyone can be allowed to see the products
+ // on the other hand, writing is only allowed for someone who registered and shared their uid. so that they can have their own cart data.
+  "rules": {
+    ".read": true,
+    ".write": "auth.uid !== null"
+  }
+}
+```
 
-   ```js
-   export async function addNewProduct(product, image) {
-     const id = uuid();
-     return set(ref(database, `products/${id}`), {
-       ...product,
-       id,
-       price: parseInt(product.price),
-       image: image,
-       colors: product.colors.split(","),
-       options: product.options.split(","),
-     });
-   }
-   ```
+If you have modified your security rules in the last 24 hours, the changes may not be reflected immediately. In my case, as soon as I got the warning message at the first time, I changed it around 2 hours later and then had exactly the same warning message again the next day. That made me worried but after 24 hours of changes, I stopped getting the warning.
 
-2. Add to cart<br>
-   ![ezgif com-gif-maker (57)](https://user-images.githubusercontent.com/94214512/209458763-761ff183-07c8-4f2c-864c-9353c5687840.gif)<br>
-   ```js
-   export async function addOrUpdateToCart(userId, product) {
-     return set(ref(database, `carts/${userId}/${product.id}`), product);
-   }
-   ```
-3. Remove<br>
-   ![ezgif com-gif-maker (58)](https://user-images.githubusercontent.com/94214512/209458826-fa8f48b9-c499-43df-97ec-c77c6a11c368.gif)<br>
-   ```js
-   export async function removeFromCart(userId, productId) {
-     return remove(ref(database, `carts/${userId}/${productId}`));
-   }
-   ```
+**3. Set, get, remove the data using firebase** <br>
+[Read and Write Data on the Web](https://firebase.google.com/docs/database/web/read-and-write?hl=en&authuser=0) <br>
 
-- **Request a data change operation to the server using useMutation from React Query (useQuery vs useMutation)** <br>
-  useQuery and useMutation were confusing at the beginning. After I studied and tested several code, I would simply say useQuery is for reading data, while useMutation is for updating data. <br>
-  <br>
-  **How to use useMutation**
+- Add a new product<br>
+  ![ezgif com-gif-maker (56)](https://user-images.githubusercontent.com/94214512/209458694-bac38751-12cf-4450-90e2-5588c304672f.gif)<br>
+
+  ```js
+  export async function addNewProduct(product, image) {
+    const id = uuid();
+    return set(ref(database, `products/${id}`), {
+      ...product,
+      id,
+      price: parseInt(product.price),
+      image: image,
+      colors: product.colors.split(","),
+      options: product.options.split(","),
+    });
+  }
+  ```
+
+- Add to cart<br>
+  ![ezgif com-gif-maker (57)](https://user-images.githubusercontent.com/94214512/209458763-761ff183-07c8-4f2c-864c-9353c5687840.gif)<br>
+  ```js
+  export async function addOrUpdateToCart(userId, product) {
+    return set(ref(database, `carts/${userId}/${product.id}`), product);
+  }
+  ```
+- Remove<br>
+  ![ezgif com-gif-maker (58)](https://user-images.githubusercontent.com/94214512/209458826-fa8f48b9-c499-43df-97ec-c77c6a11c368.gif)<br>
+  ```js
+  export async function removeFromCart(userId, productId) {
+    return remove(ref(database, `carts/${userId}/${productId}`));
+  }
+  ```
+
+**4. Request a data change operation to the server using useMutation from React Query (useQuery vs useMutation)** <br>
+useQuery and useMutation were confusing at the beginning. After I studied and tested several code, I would simply say useQuery is for reading data, while useMutation is for updating data. <br>
+<br>
+
+- **How to use useMutation**
 
 ```js
 //1)mutationFn : promise (normally request API to the server here)
@@ -152,7 +183,7 @@ const saveData = useMutation((data) => axios.post('http://localhost:8080/saveDat
 }
 ```
 
-**Use useMutation from this project**
+- **Use useMutation from this project**
 
 ```js
 //ProductDetails.jsx
@@ -181,6 +212,8 @@ export default function ProductDetail() {
 
 ```js
 //useCart.jsx
+const queryClient = useQueryClient();
+
 const addOrUpdateItem = useMutation(
   (product) => addOrUpdateToCart(uid, product),
   {
@@ -191,6 +224,9 @@ const addOrUpdateItem = useMutation(
 );
 ```
 
+**_invalidateQueries_** <br>
+invalidateQueries is used for the purpose of removing the validity of the queryKey used in useQuery. And the reason for removing the validity of the queryKey is to retrieve the data from the server again.
+
 ```js
 //firebase.js
 export async function addOrUpdateToCart(userId, product) {
@@ -198,9 +234,9 @@ export async function addOrUpdateToCart(userId, product) {
 }
 ```
 
-- **Refactoring using custom hooks for maintainence and readability**
-  useQuery and useMutation were seperated in all different components before refactoring so whenever I tried to create a caching strategy, it was hard for me to figure it out all at once. And then I got the answer after reading this [create custom hooks](https://tkdodo.eu/blog/practical-react-query#create-custom-hooks).
-  Making custom hooks really helps with managing data in one place and makes for cleaner code by getting away from the UI logic.
+**5. Refactoring using custom hooks for maintainence and readability**
+useQuery and useMutation were separated in all different components before refactoring so whenever I tried to create a caching strategy, it was hard for me to figure it out all at once. And then I got the answer after reading this [create custom hooks](https://tkdodo.eu/blog/practical-react-query#create-custom-hooks).
+Making custom hooks really helps with managing data in one place and makes for cleaner code by getting away from the UI logic.
 
 ```js
 //former NewProduct.jsx page
