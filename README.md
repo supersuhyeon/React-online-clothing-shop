@@ -200,6 +200,11 @@ export default function ProductDetail() {
       onSuccess: () => {
         cogoToast.success("added in your cart successfully!");
       },
+      onError: () => {
+        if (!user) {
+          cogoToast.error("please login to add to cart!");
+        }
+      },
     });
   };
 

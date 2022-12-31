@@ -4,9 +4,11 @@ import Button from "../components/ui/Button"
 import useCart from '../hooks/useCart'
 import cogoToast from 'cogo-toast';
 import Footer from "../components/Footer";
+import { useAuthContext } from "../context/AuthContext";
 
 export default function ProductDetail(){
     const {addOrUpdateItem} = useCart()
+    const {user} = useAuthContext()
 
     const  {state:{product:{id, image, title, price, description, category, options, ogprice, sale, colors}}} = useLocation()
     const [selected, setSelected] = useState(options && options[0])
@@ -26,7 +28,7 @@ export default function ProductDetail(){
         const productCase2 = {...productCase1, ogprice, sale}
         const finalProduct = ogprice && sale ? productCase2 : productCase1
 
-        if(color === undefined){
+        if(color === undefined && user){
             cogoToast.error('please select the color')
         }
 
@@ -35,7 +37,8 @@ export default function ProductDetail(){
                 cogoToast.success('added in your cart successfully!');
         },
             onError: ()=>{
-                cogoToast.error('please login to add to cart!')
+                if(!user){
+                cogoToast.error('please login to add to cart!')}
             }
     })
     }
