@@ -28,7 +28,6 @@ export default function Navbar(){
         return setClose((close)=>{return !close})
     }
    
-
     const handleToggleCheck = (prop)=>{
         console.log(prop)
         setMobileToggle((mobileToggle)=>{return !mobileToggle})
@@ -67,19 +66,8 @@ export default function Navbar(){
                <li>Magazine</li> 
                <li>Contact</li> 
                 </ul>
-                
             </ul>
             <Sidebar toggle={toggleSidebar} close={close}></Sidebar>
-            <nav className='flex items-center gap-4 text-sm font-semibold'>
-                {/* <Link to="/products">Products</Link> */}
-                {user &&  <Link to="/cart"><CartStatus></CartStatus></Link>}
-                {user && user.isAdmin && (<Link to="/products/new" className='text-2xl'>
-                    <BsFillPencilFill/>
-                </Link>)}
-                {user && <User user={user}></User>}
-                {!user && <Button text={"Login"} onClick={login}></Button>}
-                {user && <Button text={"Logout"} onClick={logout}></Button>}
-            </nav>
         </Desktop>
         
         <DesktopBelowDevice>
@@ -117,7 +105,9 @@ export default function Navbar(){
                     <IoMdClose></IoMdClose>
                 </button>
             </div>}
-            <nav className='flex items-center gap-4 text-sm font-semibold'>
+        </DesktopBelowDevice>
+          
+        <nav className='flex items-center gap-4 text-sm font-semibold'>
                 {/* <Link to="/products">Products</Link> */}
                 {user &&  <Link to="/cart"><CartStatus></CartStatus></Link>}
                 {user && user.isAdmin && (<Link to="/products/new" className='text-2xl'>
@@ -127,8 +117,6 @@ export default function Navbar(){
                 {!user && <Button text={"Login"} onClick={login}></Button>}
                 {user && <Button text={"Logout"} onClick={logout}></Button>}
             </nav>
-        </DesktopBelowDevice>
-          
 
         </header>
         

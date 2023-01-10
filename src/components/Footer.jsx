@@ -61,7 +61,7 @@ export default function Footer(){
             </div>
             </div>
 
-           {scrollCheck &&  <button className="fixed bottom-10 right-10 text-4xl z-50 text-brand" onClick={handleClickUp}>
+           {scrollCheck &&  <button className="fixed bottom-10 right-10 text-4xl z-30 text-brand" onClick={handleClickUp}>
                <BsFillArrowUpSquareFill></BsFillArrowUpSquareFill> 
             </button>}
         </div>
