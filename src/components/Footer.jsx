@@ -23,10 +23,12 @@ export default function Footer(){
    })
 
     return(
+        <>
         <div className="mt-20 border-t border-gray-300 mb-10">
-            <div className="flex gap-10 p-4 text-sm justify-between mt-10">
+            {/* <div className="flex gap-10 p-4 text-sm justify-between mt-10"> */}
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-4 p-4">
             <ul className="flex flex-col gap-2">
-                <li>Contact Us</li>
+                <li className="font-semibold">Contact Us</li>
                 <li>Delivery Information</li>
                 <li>Returns & Refunds</li>
                 <li>Store Locator</li>
@@ -54,7 +56,7 @@ export default function Footer(){
             </ul>
 
             <div className="flex flex-col gap-2">
-            <p>10% off your first Order.</p>
+            <p className="font-semibold">10% off your first Order.</p>
             <Button text="SUBSCRIBE"></Button>
             </div>
             </div>
@@ -63,5 +65,6 @@ export default function Footer(){
                <BsFillArrowUpSquareFill></BsFillArrowUpSquareFill> 
             </button>}
         </div>
+        </>
     )
 }

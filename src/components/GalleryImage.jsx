@@ -7,13 +7,13 @@ export default function GalleryImage(){
         dots: true,
         infinite: true,
         speed: 500,
-        slidesToShow: 4,
+        slidesToShow: 3,
         slidesToScroll: 1
       };
 
     return(
         <div>
-        <Slider className="p-20" {...settings}>
+        <Slider className="p-4" {...settings}>
           <div className="h-96">
             <img src={process.env.PUBLIC_URL + '/images/gallery1.png'} alt="knitting" />
             <h3 className="font-semibold mb-2">THE UNBOXING LULU COLLECTION</h3>
