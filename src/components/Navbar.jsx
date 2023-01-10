@@ -22,13 +22,15 @@ export default function Navbar(){
     const [toggleSidebar2, setToggleSidebar2] = useState(false)
     const [close, setClose] = useState(true)
     const [mobileToggle, setMobileToggle] = useState(false)
+    const {Desktop, DesktopBelowDevice} = useResponsiveContext()
 
     const handleDelete = ()=>{
         return setClose((close)=>{return !close})
     }
-    const {Desktop, DesktopBelowDevice} = useResponsiveContext()
+   
 
-    const handleToggleCheck = (mobileToggle)=>{
+    const handleToggleCheck = (prop)=>{
+        console.log(prop)
         setMobileToggle((mobileToggle)=>{return !mobileToggle})
     }
 
@@ -38,8 +40,9 @@ export default function Navbar(){
 
     if(mobileToggle){
         document.body.style.overflow = "hidden";
-    }else{
-        document.body.style.overflow = "unset";
+    }else if(!mobileToggle){
+        document.body.style.overflowX = "hidden";
+        document.body.style.overflowY = "unset";
     }
 
     return(
