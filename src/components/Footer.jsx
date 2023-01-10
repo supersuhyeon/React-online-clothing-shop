@@ -1,8 +1,11 @@
 import Button from "./ui/Button";
 import {BsFillArrowUpSquareFill} from 'react-icons/bs'
+import { useState } from "react";
 
 
 export default function Footer(){
+
+    const [scrollCheck, setScrollCheck] = useState(false)
 
     const handleClickUp = ()=>{
         window.scrollTo({
@@ -10,6 +13,14 @@ export default function Footer(){
             behavior:'smooth'
         })
     }
+
+   window.addEventListener('scroll',()=>{
+        if(window.scrollY > 2000){
+            setScrollCheck(true)
+        }else{
+            setScrollCheck(false)
+        }
+   })
 
     return(
         <div className="mt-20 border-t border-gray-300 mb-10">
@@ -48,9 +59,9 @@ export default function Footer(){
             </div>
             </div>
 
-            <button className="fixed bottom-10 right-10 text-4xl z-50 text-brand" onClick={handleClickUp}>
+           {scrollCheck &&  <button className="fixed bottom-10 right-10 text-4xl z-50 text-brand" onClick={handleClickUp}>
                <BsFillArrowUpSquareFill></BsFillArrowUpSquareFill> 
-            </button>
+            </button>}
         </div>
     )
 }
