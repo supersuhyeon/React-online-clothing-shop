@@ -309,6 +309,57 @@ export default function useProducts() {
 }
 ```
 
+**Make a ProtectedRoute for pages which are required for user's information**<br>
+There are two routes that require a user's uid or admin status to access which are 'Mycart' and 'Add a new product.' If someone tries to access these routes without the right credentials then the user will be redirected to the home page.
+A problem I was experiencing was that even though I had a valid uid and admin status, I was being redirected to the home page. I started debugging with console.log everywhere and figured out that the initial user's information from AuthContext.jsx was not there, it was returning undefined and then get the user's info so the ProtectedRoute oviously considered undefined as false so the redirect happened. I kept thinking about how to store the initial value regardless of re-rendering then I thought to use LocalStorage that I've learned from the todolist project. I was also bothered about the fact that whenever I clicked the refresh button, there was a brief moment that the login UI changed from logout first then to login due to the time that it needs to get the data from firebase. This problem was solved thanks to localStorage!
+
+```js
+//ProtectedRoute.jsx
+export default function ProtectedRoute({ children, requireAdmin }) {
+  const { user } = useAuthContext();
+
+  if (!user || (requireAdmin && !user.isAdmin)) {
+    return <Navigate to="/" replace={true}></Navigate>;
+  }
+  return children;
+}
+```
+
+```js
+//AuthContext.jsx
+const AuthContext = createContext();
+export function AuthContextProvider({ children }) {
+  const [user, setUser] = useState(() => {
+    return readUserFromLocalStorage();
+  });
+  useEffect(() => {
+    onUserStateChange((user) => {
+      return setUser(user);
+    });
+  }, []);
+  useEffect(() => {
+    localStorage.setItem("user", JSON.stringify(user));
+  }, [user]);
+
+  return (
+    <AuthContext.Provider
+      value={{ user, uid: user && user.uid, login: login, logout: logout }}
+    >
+      {children}
+    </AuthContext.Provider>
+  );
+}
+
+function readUserFromLocalStorage() {
+  const userInfo = localStorage.getItem("user");
+  return userInfo ? JSON.parse(userInfo) : null;
+}
+
+export function useAuthContext() {
+  return useContext(AuthContext);
+}
+```
+
 ### Reference Links
 
 [Firebase-Authentication-web-google](https://firebase.google.com/docs/auth/web/google-signin?hl=en&authuser=0)<br>
