@@ -9,7 +9,7 @@ this is a simple online store that I created using REACT. <br>
 1. Build components hierarchy and use React router for making a single page application
 2. Login and logout through `GoogleAuthProvider` from firebase
 3. Set, get, and remove data using firebase
-4. Request a data change operation to the server using `useMutation` from React Query (`useQuery` vs `useMutation`)
+4. Request a data change operation to the server using `useMutation` , `invalidateQueries` from React Query (`useQuery` vs `useMutation`)
 5. Refactoring using custom hooks for maintainence and readability
 6. Practice array APIs like map, split, sort etc...
 7. Make a `ProtectedRoute` for pages which are required for user's information
