@@ -304,6 +304,8 @@ export default function Products() {
 }
 ```
 
+Here is the code where I combined useQuery and useMutation into useProducts which is custom hook
+
 ```js
 //after refactoring useProducts.jsx
 export default function useProducts() {
@@ -359,6 +361,15 @@ const handleSubmit = (e) => {
 return(
   //...codes
 )
+}
+```
+
+```js
+//after refactoring Products.jsx
+export default function Products() {
+  const {
+    productsQuery: { isLoading, error, data: products },
+  } = useProducts();
 }
 ```
 
