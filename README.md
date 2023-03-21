@@ -274,7 +274,7 @@ export default function NewProduct(){
           { product, url },
           {
             onSuccess: () => {
-              setSuccess('성공적으로 제품이 추가되었습니다.');
+              setSuccess('New product added successfully!');
               setTimeout(() => {
                 setSuccess(null);
               }, 4000);
@@ -320,6 +320,45 @@ export default function useProducts() {
     }
   );
   return { productsQuery, addProduct };
+}
+```
+
+```js
+//after refactoring NewProduct.jsx
+export default function NewProduct(){
+
+const { addProduct } = useProducts();
+
+const handleSubmit = (e) => {
+  e.preventDefault();
+  setIsUploading((isUploading) => {
+    return !isUploading;
+  });
+  uploadImage(file) //add a file in cloudnary
+    .then((url) => {
+      console.log(url);
+      addProduct.mutate(
+        { product, url },
+        {
+          onSuccess: () => {
+            cogoToast.loading("adding new product...").then(() => {
+              cogoToast.success("New product added successfully!");
+            });
+          },
+        }
+      );
+    })
+    .finally(() => {
+      return setIsUploading((isUploading) => {
+        return !isUploading;
+      });
+    });
+  console.log(product);
+};
+
+return(
+  //...codes
+)
 }
 ```
 
